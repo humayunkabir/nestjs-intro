@@ -6,36 +6,38 @@ export class ProductsController {
   constructor(private readonly productService: ProductsService) {} 
 
   @Get()
-  all() {
-    return this.productService.all()
+  async all() {
+    return await this.productService.all()
   }
 
   @Post()
-  create(
+  async create(
     @Body('title') title: string,
     @Body('description') description: string,
     @Body('price') price: number
   ) {
-    return { id: this.productService.create(title, description, price) }
+    return { id: await this.productService.create(title, description, price) }
   }
 
   @Get(':id')
-  read(@Param('id') id: string) {
-    return this.productService.read(id)
+  async read(@Param('id') id: string) {
+    return await this.productService.read(id)
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body('title') title: string,
     @Body('description') description: string,
     @Body('price') price: number
   ) {
-    return this.productService.update(id, title, description, price)
+    await this.productService.update(id, title, description, price)
+    return null;
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    this.productService.delete(id)
+  async delete(@Param('id') id: string) {
+    await this.productService.delete(id)
+    return null;
   }
 }
